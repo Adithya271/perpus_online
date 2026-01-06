@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetRecommendationsBySearchHistory - Rekomendasi berdasarkan riwayat pencarian
+// GetRecommendationsBySearchHistory
 func GetRecommendationsBySearchHistory(c *gin.Context) {
 	db := config.ConnectDB()
 	defer db.Close()
@@ -56,7 +56,7 @@ func GetRecommendationsBySearchHistory(c *gin.Context) {
 		return
 	}
 
-	// Build WHERE conditions
+	
 	var whereClauses []string
 	var args []interface{}
 	
@@ -66,7 +66,7 @@ func GetRecommendationsBySearchHistory(c *gin.Context) {
 		args = append(args, searchTerm, searchTerm)
 	}
 	
-	// Tambahkan userId di akhir
+	// userId di akhir
 	args = append(args, userId)
 
 	// Hanya exclude buku yang SEDANG dipinjam (tanggal_kembali IS NULL)
@@ -76,9 +76,7 @@ func GetRecommendationsBySearchHistory(c *gin.Context) {
 			b.judul,
 			b.penulis,
 			b.tahun,
-			b.status,
-			10 as relevance_score,
-			'Berdasarkan riwayat pencarian Anda' as reason
+			b.status
 		FROM books b
 		WHERE (` + strings.Join(whereClauses, " OR ") + `)
 		AND b.status = 'tersedia'
@@ -102,11 +100,9 @@ func GetRecommendationsBySearchHistory(c *gin.Context) {
 	defer rows.Close()
 
 	var recommendations []models.Recommendation
-	scoreCounter := 10.0
 	
 	for rows.Next() {
 		var rec models.Recommendation
-		var tempScore float64
 		
 		err := rows.Scan(
 			&rec.IdBuku,
@@ -114,18 +110,10 @@ func GetRecommendationsBySearchHistory(c *gin.Context) {
 			&rec.Penulis,
 			&rec.Tahun,
 			&rec.Status,
-			&tempScore,
-			&rec.Reason,
 		)
 		
 		if err != nil {
 			continue
-		}
-		
-		rec.Score = int(scoreCounter)
-		scoreCounter -= 0.5
-		if scoreCounter < 5 {
-			scoreCounter = 5
 		}
 		
 		recommendations = append(recommendations, rec)
@@ -164,7 +152,7 @@ func SaveSearchHistory(c *gin.Context) {
 		return
 	}
 
-	// Insert langsung (AMAN)
+	// Insert langsung 
 	_, err := db.Exec(`
 		INSERT INTO search_history (id_user, keyword, search_date)
 		VALUES (?, ?, NOW())

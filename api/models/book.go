@@ -29,6 +29,4 @@ type Recommendation struct {
 	Penulis string `json:"penulis"`
 	Tahun   int    `json:"tahun"`
 	Status  string `json:"status"`
-	Score   int    `json:"score"`
-	Reason  string `json:"reason"`
 }

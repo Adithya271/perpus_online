@@ -8,15 +8,12 @@ type Recommendation = {
   penulis: string
   tahun: number
   status: string
-  score: number
-  reason: string
 }
 
 export default function Recommendations() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([])
   const [loading, setLoading] = useState(true)
 
-  // TODO: nanti ganti dari auth / context
   const userId = 1
 
   useEffect(() => {
@@ -29,7 +26,7 @@ export default function Recommendations() {
       const res = await api.get(`/recommendations/${userId}/by-search`)
       setRecommendations(res.data?.recommendations || [])
     } catch (err) {
-      console.error("❌ Error fetching recommendations:", err)
+      console.error("Error fetching recommendations:", err)
       setRecommendations([])
     } finally {
       setLoading(false)
@@ -52,20 +49,16 @@ export default function Recommendations() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* SIDEBAR */}
       <Sidebar />
 
-      {/* MAIN CONTENT */}
       <main className="flex-1 p-8">
-        {/* HEADER */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800">
-            ⭐ Rekomendasi Buku
+            📚 Rekomendasi Buku
           </h1>
           <p className="text-gray-500">Berdasarkan riwayat pencarian Anda</p>
         </div>
 
-        {/* CONTENT */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-24">
             <div className="animate-spin h-12 w-12 rounded-full border-b-2 border-blue-600" />
@@ -113,11 +106,8 @@ export default function Recommendations() {
               >
                 <div className="p-5 flex-grow">
                   <div className="flex justify-between mb-3">
-                    <span className="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded">
-                      #{index + 1} REKOMENDASI
-                    </span>
-                    <span className="text-sm font-bold text-blue-600">
-                      {(book.score * 10).toFixed(0)}%
+                    <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                      REKOMENDASI #{index + 1}
                     </span>
                   </div>
 
@@ -127,10 +117,6 @@ export default function Recommendations() {
                   <p className="text-sm text-gray-500 mb-4">
                     {book.penulis} • {book.tahun}
                   </p>
-
-                  <div className="bg-blue-50 p-3 rounded-lg text-xs text-blue-700 font-medium">
-                    {book.reason}
-                  </div>
                 </div>
 
                 <div className="p-4 border-t bg-gray-50 flex justify-between items-center">
