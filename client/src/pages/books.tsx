@@ -120,7 +120,7 @@ const loadBooks = async () => {
         <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">
-              📘 Koleksi Buku
+               Koleksi Buku
             </h1>
             <p className="text-gray-500">
               Pencarian dan peminjaman buku perpustakaan
@@ -132,7 +132,7 @@ const loadBooks = async () => {
             onClick={() => navigate("/recommendations")}
             className="px-5 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm font-semibold"
           >
-            ⭐ Rekomendasi Buku
+             Rekomendasi Buku
           </button>
         </div>
 
@@ -226,7 +226,7 @@ const loadBooks = async () => {
                       </td>
 
                       <td className="px-6 py-4 text-center">
-                        {/* 🔑 LOGIKA FINAL YANG BENAR */}
+                       
                         {borrowedByMe ? (
                           <button
                             onClick={() => handleReturn(b.id_buku)}

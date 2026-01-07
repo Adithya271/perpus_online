@@ -54,7 +54,7 @@ export default function Recommendations() {
       <main className="flex-1 p-8">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800">
-            📚 Rekomendasi Buku
+             Rekomendasi Buku
           </h1>
           <p className="text-gray-500">Berdasarkan riwayat pencarian Anda</p>
         </div>
@@ -115,7 +115,7 @@ export default function Recommendations() {
                     {book.judul}
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">
-                    {book.penulis} • {book.tahun}
+                    {book.penulis} * {book.tahun}
                   </p>
                 </div>
 
@@ -127,7 +127,7 @@ export default function Recommendations() {
                         : "text-red-600"
                     }`}
                   >
-                    ● {book.status.toUpperCase()}
+                    * {book.status.toUpperCase()}
                   </span>
 
                   <button

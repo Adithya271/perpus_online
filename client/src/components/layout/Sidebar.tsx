@@ -9,25 +9,25 @@ export default function Sidebar() {
   return (
     <aside className="w-64 bg-gradient-to-b from-blue-700 to-purple-700 text-white flex flex-col">
       <div className="px-6 py-6 text-xl font-bold border-b border-white/20">
-        📚 Digital Library
+         Digital Library
       </div>
 
       <nav className="flex-1 px-4 py-6 space-y-2">
         <NavLink to="/books" className={menuClass}>
-          📘 Koleksi Buku
+           Koleksi Buku
         </NavLink>
 
         <NavLink to="/journals" className={menuClass}>
-          📄 Jurnal
+           Jurnal
         </NavLink>
 
         <NavLink to="/research" className={menuClass}>
-          🔬 Laporan Penelitian
+           Laporan Penelitian
         </NavLink>
       </nav>
 
       <div className="px-6 py-4 text-sm border-t border-white/20 text-white/80">
-        © 2025 Perpustakaan Digital
+        @ 2025 Perpustakaan Digital
       </div>
     </aside>
   )
